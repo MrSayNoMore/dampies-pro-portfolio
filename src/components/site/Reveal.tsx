@@ -5,14 +5,12 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  as: Tag = "div",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
-  as?: "div" | "section" | "li" | "article" | "header";
 }) {
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -37,14 +35,13 @@ export function Reveal({
     return () => obs.disconnect();
   }, []);
 
-  const Comp = Tag as never;
   return (
-    <Comp
-      ref={ref as never}
+    <div
+      ref={ref}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
       className={cn("reveal", shown && "reveal-in", className)}
     >
       {children}
-    </Comp>
+    </div>
   );
 }

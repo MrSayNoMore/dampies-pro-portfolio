@@ -64,7 +64,7 @@ function ProjectPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const index = projects.findIndex((p) => p.slug === project.slug);
-  const next = projects[(index + 1) % projects.length];
+  const next = projects[(index + 1) % projects.length] ?? projects[0]!;
 
   return (
     <SiteLayout>

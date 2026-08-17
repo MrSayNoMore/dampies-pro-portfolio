@@ -33,7 +33,7 @@ const steps = ["Your project", "Your details", "Review"] as const;
 const inputClass =
   "h-12 w-full border border-input bg-background px-4 text-sm text-charcoal outline-none transition-colors focus:border-gold";
 
-export function QuoteForm({ initialService }: { initialService?: string }) {
+export function QuoteForm({ initialService }: { initialService?: string | undefined }) {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormState>({
     ...empty,
@@ -86,7 +86,7 @@ export function QuoteForm({ initialService }: { initialService?: string }) {
         timeframe: form.timeframe,
         details: form.details,
         photo_paths: paths,
-      });
+      } as never);
       if (error) throw error;
       setDone(true);
     } catch {
@@ -150,7 +150,7 @@ export function QuoteForm({ initialService }: { initialService?: string }) {
       <div className="mt-8 space-y-5">
         {step === 0 ? (
           <>
-            <Field label="What kind of work do you need?" error={errors.service}>
+            <Field label="What kind of work do you need?" error={errors["service"]}>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {quoteServiceOptions.map((s) => (
                   <button
@@ -171,7 +171,7 @@ export function QuoteForm({ initialService }: { initialService?: string }) {
               </div>
             </Field>
 
-            <Field label="When would you like to start?" error={errors.timeframe}>
+            <Field label="When would you like to start?" error={errors["timeframe"]}>
               <div className="grid gap-2 sm:grid-cols-2">
                 {startTimeframes.map((t) => (
                   <button
@@ -192,7 +192,7 @@ export function QuoteForm({ initialService }: { initialService?: string }) {
               </div>
             </Field>
 
-            <Field label="Tell us about the project" error={errors.details}>
+            <Field label="Tell us about the project" error={errors["details"]}>
               <textarea
                 value={form.details}
                 onChange={(e) => set("details", e.target.value)}
@@ -221,7 +221,7 @@ export function QuoteForm({ initialService }: { initialService?: string }) {
 
         {step === 1 ? (
           <>
-            <Field label="Your name" error={errors.name}>
+            <Field label="Your name" error={errors["name"]}>
               <input
                 className={inputClass}
                 value={form.name}
@@ -229,7 +229,7 @@ export function QuoteForm({ initialService }: { initialService?: string }) {
                 onChange={(e) => set("name", e.target.value)}
               />
             </Field>
-            <Field label="Contact number" error={errors.phone}>
+            <Field label="Contact number" error={errors["phone"]}>
               <input
                 className={inputClass}
                 value={form.phone}
@@ -238,7 +238,7 @@ export function QuoteForm({ initialService }: { initialService?: string }) {
                 onChange={(e) => set("phone", e.target.value)}
               />
             </Field>
-            <Field label="Email (optional)" error={errors.email}>
+            <Field label="Email (optional)" error={errors["email"]}>
               <input
                 className={inputClass}
                 value={form.email}
@@ -326,7 +326,7 @@ function Field({
   children,
 }: {
   label: string;
-  error?: string;
+  error?: string | undefined;
   children: React.ReactNode;
 }) {
   return (

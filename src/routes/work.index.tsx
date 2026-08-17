@@ -11,7 +11,7 @@ const title = "Our Work — Real Project Photos | Dampies & Sons Pro Projects";
 const description =
   "Browse completed kitchens, bathrooms, extensions, paving and carpentry projects photographed on site by Dampies & Sons Pro Projects.";
 
-export const Route = createFileRoute("/work")({
+export const Route = createFileRoute("/work/")({
   head: () => ({
     meta: [
       { title },
